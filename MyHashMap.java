@@ -1,79 +1,76 @@
 public class MyHashMap<K, V> {
-    private SingleLinkNode head;
-    private SingleLinkNode tail;
+    private SingleLinkNode[] arr;
     private int size;
+    private int capacity;
 
-    public MyHashMap()
-    {
-        this.head = null;
-        this.tail = null;
+    public MyHashMap() {
+        this.arr = new SingleLinkNode[10];
         size = 0;
+        capacity = 10;
     }
 
-    public void put (K key, V value)
-    {
-        if (head == null)
-        {
-            head = new SingleLinkNode<K, V>(key, value);
-            tail = head;
+    public void put (K key, V value) {
+        int hash = key.hashCode() % capacity;
+        if (arr[hash] == null) {
+            arr[hash] = new SingleLinkNode<K, V>(key, value);
             size++;
         }
-        else if (this.get(key) == null)
-        {
-            tail.setNext(new SingleLinkNode<K, V>(key, value));
-            tail = tail.getNext();
-            size++;
-        }
-    }
-
-    public V get (K key)
-    {
-
-        SingleLinkNode searched = head;
-        for (int i = 0; i < size; i++)
-        {
-            if (searched.getKey() == key)
+        else if (this.get(key) == null) {
+            SingleLinkNode node = arr[hash];
+            while (node.getNext() != null)
             {
-                return (V) searched.getValue();
+                node = node.getNext();
             }
-            searched = searched.getNext();
+            node.setNext(new SingleLinkNode<K, V>(key, value));
+            size++;
+        }
+    }
+
+    public V get (K key) {
+        int hash = key.hashCode() % capacity;
+        SingleLinkNode searched = arr[hash];
+        if (searched != null)
+        {
+            do {
+                if (searched.getKey() == key) {
+                    return (V) searched.getValue();
+                }
+                searched = searched.getNext();
+            } while (searched.getNext() != null);
         }
         return null;
     }
 
-    public void remove(K key)
-    {
-        if (head == null)
-        {
+    public void remove(K key) {
+        int hash = key.hashCode() % capacity;
+        if (arr[hash] == null) {
             return;
         }
-        if (head.getKey() == key)
-        {
-            head = head.getNext();
+        if (arr[hash].getKey() == key) {
+            arr[hash] = arr[hash].getNext();
             size--;
             return;
         }
-        SingleLinkNode searched = head;
-        for (int i = 0; i < size - 1; i++)
-        {
-            if (searched.getNext().getKey() == key)
-            {
+        SingleLinkNode searched = arr[hash];
+        do {
+            if (searched.getNext().getKey() == key) {
                 searched.setNext(searched.getNext().getNext());
                 size--;
                 return;
             }
             searched = searched.getNext();
+        } while (searched.getNext() != null);
+    }
+
+    public void clear() {
+        size = 0;
+        for (int i = 0; i < arr.length; i++)
+        {
+            arr[i] = null;
         }
     }
 
-    public void clear()
-    {
-        size = 0;
-        head = null;
-    }
-
-    public int size()
-    {
+    public int size() {
         return size;
     }
 }
