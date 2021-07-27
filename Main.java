@@ -7,9 +7,8 @@ public class Main {
         testMap();
     }
 
-    public static void testArrayList()
-    {
-        MyArrayList arrayList = new MyArrayList<Integer>();
+    public static void testArrayList() {
+        MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(1);
         arrayList.add(2);
         arrayList.add(3);
@@ -29,9 +28,8 @@ public class Main {
         System.out.println("Size: " + arrayList.size());
     }
 
-    public static void testLinkedList()
-    {
-        MyLinkedList list = new MyLinkedList<Integer>();
+    public static void testLinkedList() {
+        MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -60,9 +58,8 @@ public class Main {
         System.out.println("Size: " + list.size());
     }
 
-    public static void testQueue()
-    {
-        MyQueue q = new MyQueue<Integer>();
+    public static void testQueue() {
+        MyQueue<Integer> q = new MyQueue<>();
         q.add(1);
         q.add(2);
         q.add(3);
@@ -75,9 +72,8 @@ public class Main {
         System.out.println("Peek: " + q.peek());
     }
 
-    public static void testStack()
-    {
-        MyStack q = new MyStack<Integer>();
+    public static void testStack() {
+        MyStack<Integer> q = new MyStack<>();
         q.push(1);
         q.push(2);
         q.push(3);
@@ -90,9 +86,8 @@ public class Main {
         System.out.println("Peek: " + q.peek());
     }
 
-    public static void testMap()
-    {
-        MyHashMap m = new MyHashMap<String, Integer>();
+    public static void testMap() {
+        MyHashMap<String, Integer> m = new MyHashMap<>();
         m.put("a", 1);
         m.put("b", 2);
         m.put("c", 3);
